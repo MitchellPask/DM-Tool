@@ -21,7 +21,9 @@ ADDITIONAL FEATURES:
 
 RESOURCES:
 - Unity
+- Visual Studio
 - Git
 - Gimp
-- C++
-- Visual Studio
+- C#
+
+#### Please raise an issue if you have any questions or find an error. Thank you!
