@@ -606,12 +606,19 @@ MonoBehaviour:
   normalSpeed: 0.5
   fastSpeed: 3
   rotationAmount: 1
-  zoomAmount: {x: 0, y: 0, z: 0}
-  newPostion: {x: 0, y: 0, z: 0}
+  zoomAmount: {x: 0, y: -2, z: 2}
+  newPosition: {x: 0, y: 0, z: 0}
   newRotation: {x: 0, y: 0, z: 0, w: 0}
   newZoom: {x: 0, y: 0, z: 0}
+  dragStartPosition: {x: 0, y: 0, z: 0}
+  dragCurrentPosition: {x: 0, y: 0, z: 0}
+  rotateStartPosition: {x: 0, y: 0, z: 0}
+  rotateCurrentPosition: {x: 0, y: 0, z: 0}
   panningBorderThickness: 10
+  panLimit: {x: 40, y: 75}
   scrollSpeed: 20
+  minY: 0
+  maxY: 80
 --- !u!4 &2106168011
 Transform:
   m_ObjectHideFlags: 0
@@ -620,7 +627,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2106168009}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 963194228}

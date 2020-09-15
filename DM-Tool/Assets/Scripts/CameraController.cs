@@ -11,9 +11,9 @@ public class CameraController : MonoBehaviour
     public float normalSpeed = 0.5f;
     public float fastSpeed = 3f;
     public float rotationAmount = 1f;
-    public Vector3 zoomAmount = new Vector3(0f, -2f, 2f);
+    public Vector3 zoomAmount;
 
-    public Vector3 newPosition; // camera position
+    public Vector3 newPosition; //Camera position
     public Quaternion newRotation;
     public Vector3 newZoom;
 
@@ -23,9 +23,9 @@ public class CameraController : MonoBehaviour
     public Vector3 rotateCurrentPosition;
 
     public float panningBorderThickness = 5f;
-    public Vector2 panLimit = new Vector2(40f, 75f);
+    public Vector2 panLimit = new Vector2(40f, 60f);
     public float scrollSpeed = 20f;
-    public float minY = 10f;
+    public float minY = 5f;
     public float maxY = 75f;
 
     void Start()
@@ -35,7 +35,7 @@ public class CameraController : MonoBehaviour
         newZoom = cameraTransform.localPosition; //Local position so camera stays relative to rig
     }
 
-    // Update is called once per frame
+    //Update is called once per frame
     void Update()
     {
         MouseInput();
@@ -43,19 +43,19 @@ public class CameraController : MonoBehaviour
 
         //Camera Restrictions
         newPosition.x = Mathf.Clamp(newPosition.x, -panLimit.x, panLimit.x);
-        newPosition.y = Mathf.Clamp(newPosition.y, minY, maxY); // TODO - Y axis clamp non functional
+        //newZoom.y = Mathf.Clamp(newZoom.y, minY, maxY); // TODO - Y axis clamp non functional
         newPosition.z = Mathf.Clamp(newPosition.z, -panLimit.y, panLimit.y);
     }
 
     void MouseInput()
     {
         //Zoom with scroll wheel
-        if(Input.mouseScrollDelta.y != 0)
+        if(Input.mouseScrollDelta.y != 0 && newZoom.y > minY && newZoom.y < maxY)
         {
             newZoom += Input.mouseScrollDelta.y * zoomAmount;
         }
 
-        //Click and drag movement (left mouse button)
+        //Click and drag movement with left mouse button
         if (Input.GetMouseButtonDown(0))
         {
             Plane plane = new Plane(Vector3.up, Vector3.zero);
@@ -84,17 +84,18 @@ public class CameraController : MonoBehaviour
             }
         }
 
-        //Rotation with right click
+        //Rotation with right mouse button
         if (Input.GetMouseButtonDown(1))
         {
             rotateStartPosition = Input.mousePosition;
         }
+
         if (Input.GetMouseButton(1))
         {
             rotateCurrentPosition = Input.mousePosition;
             Vector3 difference = rotateStartPosition - rotateCurrentPosition;
             rotateStartPosition = rotateCurrentPosition;
-            newRotation *= Quaternion.Euler(Vector3.up * (-difference.x / 5f)); //difference negated for natural reverse rotation
+            newRotation *= Quaternion.Euler(Vector3.up * (-difference.x / 5f)); //difference negated for natural rotation
         }
     }
 
@@ -151,7 +152,6 @@ public class CameraController : MonoBehaviour
 
         transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementTime);
         transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * movementTime);
-        // TODO - Remedy camera zoom target overshooting (likely due to camera angle)
         cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime * movementTime);
     }
 }
