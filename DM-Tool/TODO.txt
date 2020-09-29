@@ -1,0 +1,14 @@
+=== CAMERA ===
+- Camera overshooting the rig on zoom in
+
+=== Lighting ===
+- Day / Night Cycle
+- View Distance Blurring
+- Fog
+
+=== MENUS ===
+- Start menu
+- Options menu
+
+=== POPUPS ===
+- Unit popup

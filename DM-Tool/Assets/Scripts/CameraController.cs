@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +14,8 @@ public class CameraController : MonoBehaviour
     public float rotationAmount = 1f;
     public Vector3 zoomAmount;
 
-    public Vector3 newPosition; //Camera position
+    //Camera positioning
+    public Vector3 newPosition;
     public Quaternion newRotation;
     public Vector3 newZoom;
 
@@ -22,9 +24,10 @@ public class CameraController : MonoBehaviour
     public Vector3 rotateStartPosition;
     public Vector3 rotateCurrentPosition;
 
-    public float panningBorderThickness = 5f;
+    public float panningBorderThickness = 1f; //DISABLED PANNING BORDER DURING DEVELOPMENT
     public Vector2 panLimit = new Vector2(40f, 60f);
     public float scrollSpeed = 20f;
+
     public float minY = 5f;
     public float maxY = 75f;
 
@@ -38,21 +41,25 @@ public class CameraController : MonoBehaviour
     //Update is called once per frame
     void Update()
     {
+        //Camera Restrictions (clamps must stay above input checks)
+        newPosition.x = Mathf.Clamp(newPosition.x, -panLimit.x, panLimit.x);
+        newZoom.y = Mathf.Clamp(newZoom.y, minY, maxY);
+        newPosition.z = Mathf.Clamp(newPosition.z, -panLimit.y, panLimit.y);
+
+        //Function calls checking for movement input
         MouseInput();
         MovementInput();
-
-        //Camera Restrictions
-        newPosition.x = Mathf.Clamp(newPosition.x, -panLimit.x, panLimit.x);
-        //newZoom.y = Mathf.Clamp(newZoom.y, minY, maxY); // TODO - Y axis clamp non functional
-        newPosition.z = Mathf.Clamp(newPosition.z, -panLimit.y, panLimit.y);
     }
 
     void MouseInput()
     {
         //Zoom with scroll wheel
-        if(Input.mouseScrollDelta.y != 0 && newZoom.y > minY && newZoom.y < maxY)
+        if(Input.mouseScrollDelta.y != 0)
         {
-            newZoom += Input.mouseScrollDelta.y * zoomAmount;
+            if (!(newZoom.y >= maxY && Input.mouseScrollDelta.y < 0 || newZoom.y <= minY && Input.mouseScrollDelta.y > 0))
+            {
+                newZoom += Input.mouseScrollDelta.y * zoomAmount;
+            }
         }
 
         //Click and drag movement with left mouse button
@@ -101,7 +108,7 @@ public class CameraController : MonoBehaviour
 
     void MovementInput()
     {
-        //Camera movement speed
+        //Keyboard movement speed (left-shift sprint)
         if (Input.GetKey(KeyCode.LeftShift))
         {
             movementSpeed = fastSpeed;
@@ -111,25 +118,25 @@ public class CameraController : MonoBehaviour
             movementSpeed = normalSpeed;
         }
 
-        //Camera movement direction
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow) || Input.mousePosition.y >= Screen.height - panningBorderThickness)
+        //Keyboard camera directional movement
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow) /*|| Input.mousePosition.y >= Screen.height - panningBorderThickness*/)
         {
             newPosition += (transform.forward * movementSpeed);
         }
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow) || Input.mousePosition.y <= panningBorderThickness)
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow) /*|| Input.mousePosition.y <= panningBorderThickness*/)
         {
             newPosition += (transform.forward * -movementSpeed);
         }
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) || Input.mousePosition.x >= Screen.width - panningBorderThickness)
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) /*|| Input.mousePosition.x >= Screen.width - panningBorderThickness*/)
         {
             newPosition += (transform.right * movementSpeed);
         }
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) || Input.mousePosition.x <= panningBorderThickness)
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) /*|| Input.mousePosition.x <= panningBorderThickness*/)
         {
             newPosition += (transform.right * -movementSpeed);
         }
 
-        //Camera Rotate
+        //Keyboard camera Rotate
         if (Input.GetKey(KeyCode.Q))
         {
             newRotation *= Quaternion.Euler(Vector3.up * rotationAmount);
@@ -139,14 +146,20 @@ public class CameraController : MonoBehaviour
             newRotation *= Quaternion.Euler(Vector3.up * -rotationAmount);
         }
 
-        //Camera zoom
+        //Keyboard camera zoom
         if (Input.GetKey(KeyCode.R))
         {
-            newZoom += zoomAmount;
+            if (!(newZoom.y <= minY))
+            {
+                newZoom += zoomAmount;
+            }
         }
         if (Input.GetKey(KeyCode.F))
         {
-            newZoom -= zoomAmount;
+            if (!(newZoom.y >= maxY))
+            {
+                newZoom -= zoomAmount;
+            }
         }
 
 
