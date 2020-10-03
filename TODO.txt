@@ -1,10 +1,18 @@
-=== CAMERA ===
-- Camera overshooting the rig on zoom in
-
 === Lighting ===
 - Day / Night Cycle
 - View Distance Blurring
 - Fog
+
+=== MAP CREATION ===
+- Hex or Cube
+- Tiling or Painting
+- Grid super impose
+
+=== UNITS ===
+- Unit Stats (health, movespeed, view distance)
+- AoE display
+- Unit tags
+- Unit icons (or 3d minis)
 
 === MENUS ===
 - Start menu
@@ -12,3 +20,10 @@
 
 === POPUPS ===
 - Unit popup
+
+=== MISC ===
+- DM View and Player View?
+
+=== CAMERA ===
+Functioning Acceptably
+
