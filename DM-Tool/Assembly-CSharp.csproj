@@ -59,6 +59,9 @@
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\GameEvent.cs" />
      <Compile Include="Assets\Scripts\Messenger.cs" />
+     <Compile Include="Assets\Scripts\OptionsPopup.cs" />
+     <Compile Include="Assets\Scripts\SettingsPopup.cs" />
+     <Compile Include="Assets\Scripts\UIController.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/UNITY/DM-Tool/DM-Tool/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
