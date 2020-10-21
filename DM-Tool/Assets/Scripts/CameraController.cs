@@ -7,7 +7,7 @@ public class CameraController : MonoBehaviour
 {
     public Transform cameraTransform;
 
-    public float movementSpeed = 1f;
+    public float movementSpeed = 0.5f;
     public float movementTime = 5f;
     public float normalSpeed = 0.5f;
     public float fastSpeed = 3f;
@@ -56,6 +56,7 @@ public class CameraController : MonoBehaviour
         //Zoom with scroll wheel
         if(Input.mouseScrollDelta.y != 0)
         {
+            //Zoom distance limiting check
             if (!(newZoom.y >= maxY && Input.mouseScrollDelta.y < 0 || newZoom.y <= minY && Input.mouseScrollDelta.y > 0))
             {
                 newZoom += Input.mouseScrollDelta.y * zoomAmount;
