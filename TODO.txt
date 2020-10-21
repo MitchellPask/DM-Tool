@@ -1,18 +1,26 @@
+=== SAVE & LOAD ===
+- Maps
+- Minis
+- Tiles / Textures
+
+=== MAP CREATION ===
+- Hex and/or Cube
+- Tiling map
+- Grid highlighting
+
+=== UNITS ===
+- Unit stats
+	- health
+	- movespeed
+	- view distance
+- AoE overlay
+- Unit tags
+- Unit icons / 3d minis
+
 === Lighting ===
 - Day / Night Cycle
 - View Distance Blurring
 - Fog
-
-=== MAP CREATION ===
-- Hex or Cube
-- Tiling or Painting
-- Grid super impose
-
-=== UNITS ===
-- Unit Stats (health, movespeed, view distance)
-- AoE display
-- Unit tags
-- Unit icons (or 3d minis)
 
 === MENUS ===
 - Start menu
@@ -22,8 +30,13 @@
 - Unit popup
 
 === MISC ===
-- DM View and Player View?
+- Multiscreen support
+
+--- --- --- --- --- ---
 
 === CAMERA ===
-Functioning Acceptably
+Functioning acceptably
+
+=== CONTROLS ===
+On hold
 

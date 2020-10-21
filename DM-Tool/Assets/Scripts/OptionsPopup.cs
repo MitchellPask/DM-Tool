@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class OptionsPopup : BasePopup
 {
@@ -28,4 +29,9 @@ public class OptionsPopup : BasePopup
         UIController.ResumeGame();
     }
 
+    public void OnMainMenu()
+    {
+        UIController.ResumeGame();
+        SceneManager.LoadScene(0);
+    }
 }
