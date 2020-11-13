@@ -7,10 +7,17 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public void OnPlayButton()
+    public void OnBuildButton()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+        SceneManager.LoadScene("BuildEncounter");
     }
+
+    public void OnStartButton()
+    {
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("StartEncounter");
+    }    
 
     public void OnQuitButton()
     {
